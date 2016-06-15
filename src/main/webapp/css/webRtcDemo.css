@@ -1,0 +1,57 @@
+
+.SubPane {
+    width: 500px;
+    border-spacing: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    /*border: solid black 1px;*/
+}
+
+.ParticipantPane {
+    width: 30%;
+    height: 200px;
+    padding-right: 50px;
+}
+
+.TransferedMessagePane {
+    width: 70%;
+    height: 200px;
+}
+
+.ParticipantList {
+    overflow: scroll;
+    margin: 0px;
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+    border: solid black 2px;
+}
+
+.TransferedMessage {
+    overflow: scroll;
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+    border: solid black 2px;
+}
+
+.Message {
+    width: 100%;
+}
+
+.SendButton {
+}
+.RecipientName  {
+    overflow: auto;
+    padding: 5px;
+    width: 350px;
+    height: 100%;
+}
+.StatusMessage {
+    overflow: scroll;
+    padding: 5px;
+    width: 350px;
+    height: 50px;
+}
+
+

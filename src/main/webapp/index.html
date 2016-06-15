@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="css/webRtcDemo.css" />
+         <script src="js/webRtcDemo.js"></script> 
+    </head>
+    
+    <body>
+        <br />
+        <form class="SubPane" name="ConnectionForm" onsubmit="connect(this)" action="javascript:void(0);">
+            <b>UserId:</b> <input type="text" name="UserId" />
+            <input type="submit" value="Connect" />
+        </form> 
+        <hr />
+        <table class="subPane">
+            <tr>
+                <td class="ParticipantPane">
+                    <b>Participants:</b>
+                    <ul class="ParticipantList" id="ParticipantList"></ul>
+                </td>
+                <td class="TransferedMessagePane">
+                    <b>Transfered Messages:</b>
+                    <div class="TransferedMessage" id="TransferedMessage"><div>
+                </td>
+            </tr>
+        </table>
+        
+        <br />
+        
+         <table class="subPane">
+            <tr>
+                <td><b>Recipient:</b></td>
+                <td><div class="RecipientName" id="RecipientName"></div></td>
+            </tr>
+            <tr>
+                <td><b>Message:</b></td>
+                <td>
+                    <textarea class="Message" name="Message" id="Message" rows="5"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button class="SendButton" name="SendButton" onclick="sendMessage()">Send Message</button></td>
+            </tr>
+            <tr>
+                <td><b>Status:</b></td>
+                <td><div class="StatusMessage" id="StatusMessage">OK</div></td>
+            </tr>
+        </table>
+        
+    </body>
+    
+</html>
