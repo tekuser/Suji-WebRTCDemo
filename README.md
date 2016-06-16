@@ -25,5 +25,14 @@ Instruction:
 3) Open a web browser and go to the url http://localhost:9080
 
 Note: Jetty and Netty should be run on the same server because the websocket url is build using Jetty's hostname. This is hardcoded in the client javascript (webRtcDemo.js).  
-In the same way, the port of the Netty server should also be 9090 because it is also hardcoded in the client javascript (webRtcDemo.js).
+In the same way, the port of the Netty server should also be 9090 because it is also hardcoded in the client javascript (webRtcDemo.js).  
+
+
+Tested with:  
+Maven 3.3.9  
+Java 1.8  
+Firefox 47  
+IExplore 11  
+Microsoft Edge (25)  
+
 
