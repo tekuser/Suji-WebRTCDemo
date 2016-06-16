@@ -79,7 +79,7 @@ public class WsMessageProcessor {
         
         final AtomicReference<Channel> rec = userMap.get(req.getToUserId());
         if (rec == null)
-            sendResponse(ctx.channel(), "OP_ERROR", req.getCommand(), "no user "+req.getFromUserId()+" found");
+            sendResponse(ctx.channel(), "OP_ERROR", req.getCommand(), "no user "+req.getToUserId()+" found");
         else {
             ServerEvent serverEvent = new ServerEvent("MessageReceived", req.getFromUserId(), req.getMessage());
             

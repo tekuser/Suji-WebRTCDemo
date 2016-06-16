@@ -17,6 +17,11 @@ function connect(connectForm) {
         reportStatusMessage("ERROR", "Cannot connect with an empty ID");
         return false;
     }
+    if (!connectForm.UserId.value.match(/^[0-9a-zA-Z_]+$/)) {
+        reportStatusMessage("ERROR", "Invalid userId: only alphanumeric and underscore chars allowed");
+        return false;
+    }
+
     if (webSocket != null) {
         webSocket.onclose = function () {};
         webSocket.onopen = function () {};
@@ -36,7 +41,7 @@ function connect(connectForm) {
         webSocket.send("{command:'connect', fromUserId:'"+currentUserId+"'}")
     }
     webSocket.onerror = function(evt) {
-        reportStatusMessage("INFO", "WebSocket Error");
+        reportStatusMessage("ERROR", "WebSocket Error");
     } 
     webSocket.onmessage = function(evt) {
         var data = JSON.parse(evt.data);
@@ -94,7 +99,8 @@ function sendMessage() {
         return;
     }
     message.value = "";
-    webSocket.send("{command:'sendMessage', fromUserId:'"+currentUserId+"', toUserId:'"+selectedParticipant.innerHTML+"', message:'"+msgValue+"'}")
+    escapedMsgValue = msgValue.replace(/'/g, "\\'");
+    webSocket.send("{command:'sendMessage', fromUserId:'"+currentUserId+"', toUserId:'"+selectedParticipant.innerHTML+"', message:'"+escapedMsgValue+"'}")
     addMessage(currentUserId, msgValue);
 }
 
@@ -131,7 +137,18 @@ function setParticipantList(users) {
 
 function addParticipant(user) {
     var plist = document.getElementById("ParticipantList");
-    plist.innerHTML += "<li onclick='participantSelected(this)' id='"+user+"'>"+user+"</li>";
+    var newLi = document.createElement("li");
+    newLi.appendChild(document.createTextNode(user));
+    newLi.setAttribute("id", user);
+    newLi.setAttribute("onclick", "participantSelected(this)");
+    plist.appendChild(newLi);
+
+    if (selectedParticipant != "") {
+        var sel = document.getElementById(selectedParticipant.innerHTML);
+        sel.style.backgroundColor = selectedParticipant.style.backgroundColor;
+        selectedParticipant = sel;
+    }
+
     addMessage("####", user+" has joined the discussion");
 }
 
