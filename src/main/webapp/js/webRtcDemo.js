@@ -127,6 +127,7 @@ function addMessage(user, msg) {
 function setParticipantList(users) {
     var htmldata = "";
     users.sort();
+    users.unshift("*ALL*");
     var nUsers = users.length;
     for (var i = 0; i < nUsers; i++) {
         htmldata += "<li onclick='participantSelected(this)' id='"+users[i]+"'>"+users[i]+"</li>";

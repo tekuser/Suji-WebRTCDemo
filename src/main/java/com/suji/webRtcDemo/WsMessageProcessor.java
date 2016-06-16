@@ -18,9 +18,8 @@ import com.suji.webRtcDemo.data.ServerResponse;
 
 
 public class WsMessageProcessor {
-    
+	private final static String BROADCAST_USER = "*ALL*";
     private final Gson jsonSerializer = new Gson();
-    
     private final ConcurrentHashMap<String, AtomicReference<Channel> > userMap = new ConcurrentHashMap<String, AtomicReference<Channel>>();
     
     public WsMessageProcessor() {
@@ -77,12 +76,18 @@ public class WsMessageProcessor {
             return;
         }
         
+        ServerEvent serverEvent = new ServerEvent("MessageReceived", req.getFromUserId(), req.getMessage());
+        
+        if (BROADCAST_USER.equalsIgnoreCase(req.getToUserId())) {
+        	broadcastServerEvent(serverEvent, req.getFromUserId());
+        	sendResponse(ctx.channel(), "OP_SUCCESS", req.getCommand(), "message broadcasted to "+req.getToUserId());
+        	return;
+        }
+        
         final AtomicReference<Channel> rec = userMap.get(req.getToUserId());
         if (rec == null)
             sendResponse(ctx.channel(), "OP_ERROR", req.getCommand(), "no user "+req.getToUserId()+" found");
         else {
-            ServerEvent serverEvent = new ServerEvent("MessageReceived", req.getFromUserId(), req.getMessage());
-            
             sendData(rec.get(), serverEvent).addListener(new ChannelFutureListener() {
                 public void operationComplete(final ChannelFuture future) {
                     if (future.isCancelled())
